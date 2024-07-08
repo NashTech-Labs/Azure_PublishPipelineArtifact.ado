@@ -1,11 +1,43 @@
 # Publish Pipeline Artifacts v1
 # Publish (upload) a file or directory as a named artifact for the current run.
+
+parameters:
+- name: 'targetPath'
+  type: string    
+  default: '$(Pipeline.Workspace)'
+
+- name: 'artifact'
+  type: string 
+  default: ''
+
+- name: 'publishLocation'
+  type: string  
+  default: 'pipeline'
+
+- name: 'fileSharePath'
+  type: string    
+  default: ''
+
+- name: 'parallel'
+  type: boolean    
+  default: false
+
+- name: 'parallelCount'
+  type: string    
+  default: '8'
+
+- name: 'properties'
+  type: string    
+  default: ''
+
+
+steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)' # string. Alias: path. Required. File or directory path. Default: $(Pipeline.Workspace).
-    #artifact: # string. Alias: artifactName. Artifact name. 
+    artifact: # string. Alias: artifactName. Artifact name. 
     publishLocation: 'pipeline' # 'pipeline' | 'filepath'. Alias: artifactType. Required. Artifact publish location. Default: pipeline.
-    #fileSharePath: # string. Required when artifactType = filepath. File share path. 
-    #parallel: false # boolean. Optional. Use when artifactType = filepath. Parallel copy. Default: false.
-    #parallelCount: '8' # string. Optional. Use when artifactType = filepath && parallel = true. Parallel count. Default: 8.
-    #properties: # string. Custom properties.
+    fileSharePath: # string. Required when artifactType = filepath. File share path. 
+    parallel: false # boolean. Optional. Use when artifactType = filepath. Parallel copy. Default: false.
+    parallelCount: '8' # string. Optional. Use when artifactType = filepath && parallel = true. Parallel count. Default: 8.
+    properties: # string. Custom properties.
